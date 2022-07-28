@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import {Link} from 'react-router-dom'
 import {DropdownButton} from 'react-bootstrap'
 
 const Header = () => {
@@ -12,7 +13,9 @@ const Header = () => {
     <>
     <Navbar bg="primary" expand="lg" variant="dark" className='px-5'>
       <Container>
-        <Navbar.Brand href="#">Note Zipper</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to='/'>Note Zipper</Link>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll" >
             
@@ -32,7 +35,11 @@ const Header = () => {
             
         </Nav>
         <Nav>
-            <Nav.Link href="#action1">My Notes</Nav.Link>
+            <Nav.Link>
+              <Link to='/mynotes'>
+                My Notes
+              </Link>
+            </Nav.Link>
             <NavDropdown
             align="end"
             title="Username"
