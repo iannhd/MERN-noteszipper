@@ -36,9 +36,7 @@ const Header = () => {
         </Nav>
         <Nav>
             <Nav.Link>
-              <Link to='/mynotes'>
                 My Notes
-              </Link>
             </Nav.Link>
             <NavDropdown
             align="end"

@@ -1,18 +1,29 @@
 import React from 'react'
 import { useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import MainScreen from '../../Components/MainScreen'
 import axios from 'axios'
 import './LoginPage.css'
 import Loading from '../../Components/Loading'
+import ErrorMessage from '../../Components/ErrorMessage'
+import { useEffect } from 'react'
 
-const LoginPage = () => {
+const LoginPage = ({history}) => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+    useEffect(()=>{
+    
+        const userInfo = localStorage.getItem("userInfo")
+        if(userInfo){
+            navigate('/mynotes')
+        }
+
+    },[history])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -33,13 +44,16 @@ const LoginPage = () => {
             console.log(data, "===> ini dari LoginPage")
             localStorage.setItem('userInfo', JSON.stringify(data) )
             setLoading(false)
+            setError(false)
         } catch (error) {
             setError(error.response.data.message)
+            setLoading(false)
         }
     }
     
   return (<MainScreen title='Login'>
     <div className="loginContainer">
+        {error && <ErrorMessage variant='danger'>{error}</ErrorMessage>}
         {loading && <Loading/>}
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId='formBasicEmail'>
@@ -65,7 +79,7 @@ const LoginPage = () => {
             variant="primary"
             className="mt-3"
             >
-                Submit
+                Login
             </Button>
         </Form>
 
